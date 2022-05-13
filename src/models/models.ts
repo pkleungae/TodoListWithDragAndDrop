@@ -3,3 +3,13 @@ export interface Todo{
     todo:string;
     isDone:boolean;
 }
+
+// import { useReducer } from "react";
+
+// const ReducerExample = () => {
+
+//     const [state,dispatch] = useReducer(TodoReducer,[])
+//   return (
+//     <div>models</div>
+//   )
+// }

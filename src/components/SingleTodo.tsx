@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Todo } from "../models/models";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
@@ -11,9 +11,8 @@ interface Props {
 }
 
 const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }) => {
-
   const [editTodo, setEditTodo] = useState<string>(todo.todo);
-  const [edit,setEdit] = useState<boolean>(false);
+  const [edit, setEdit] = useState<boolean>(false);
 
   //handle edit function implementation
   function handleEdit(e: React.FormEvent, id: number): void {
@@ -40,6 +39,13 @@ const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }) => {
     console.log("id: " + id + " just done");
   }
 
+  // to select element tag
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [edit]);
+
   return (
     // where the handle edit fire up
     <form className="todos__single" onSubmit={(e) => handleEdit(e, todo.id)}>
@@ -48,11 +54,12 @@ const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }) => {
       {/* edit to do display control, dynamic edit */}
       {edit ? (
         <input
+          ref={inputRef}
           value={editTodo}
           onChange={(e) => setEditTodo(e.target.value)}
-          className="todos__single--test"
-          type='text'
-        ></input>
+          className="todos__single--text"
+          type="text"
+        />
       ) : todo.isDone ? (
         <s className="todos__single--text">{todo.todo}</s>
       ) : (
@@ -60,13 +67,15 @@ const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }) => {
       )}
 
       <div>
-        
         {/* control edit mode */}
-        <span className="icon" onClick={()=>{
-          if(!edit && !todo.isDone){
-            setEdit(!edit)
-          }
-        }}>
+        <span
+          className="icon"
+          onClick={() => {
+            if (!edit && !todo.isDone) {
+              setEdit(!edit);
+            }
+          }}
+        >
           <AiFillEdit></AiFillEdit>
         </span>
 

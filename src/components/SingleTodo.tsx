@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Todo } from '../models/models'
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
@@ -13,6 +13,17 @@ interface Props{
 
 const SingleTodo:React.FC<Props> = ({todo,todos,setTodos}) => {
 
+ 
+//handle edit function implementation
+  function handleEdit(e:React.FormEvent, id:number):void{
+    
+    e.preventDefault();
+
+    setTodos(
+      todos.map((todo)=>todo.id===id?{...todo,todo:editTodo}:todo));
+    
+ 
+  }
 
   function handleDelete(id: number): void {
     setTodos(todos.filter((todo)=>todo.id!==id));
@@ -26,7 +37,8 @@ const SingleTodo:React.FC<Props> = ({todo,todos,setTodos}) => {
   
 
   return (
-    <form className='todos__single'>
+    // where the handle edit fire up 
+    <form className='todos__single' onSubmit={(e)=>handleEdit(e,todo.id)}>
 
       {/* isDone todo display conttrol */}
 
@@ -37,7 +49,7 @@ const SingleTodo:React.FC<Props> = ({todo,todos,setTodos}) => {
       )}
       <div>
         <span className="icon">
-          <AiFillEdit></AiFillEdit>
+          <AiFillEdit onClick={()=>handleEdit(e,todo.id)}></AiFillEdit>
         </span>
           
           {/* delete function implemention */}

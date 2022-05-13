@@ -2,6 +2,7 @@ import React from 'react'
 import { Todo } from '../models/models'
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
+import { TodoList } from './TodoList';
 
 interface Props{
     todo:Todo,
@@ -9,7 +10,15 @@ interface Props{
     setTodos:React.Dispatch<React.SetStateAction<Array<Todo>>>;
 }
 
+
 const SingleTodo:React.FC<Props> = ({todo,todos,setTodos}) => {
+
+  function handleDone(id: number): void {
+    setTodos(todos.map((todo)=>todo.id===id?{...todo,isDone:!todo.isDone}:todo))
+    console.log('id: ' + id+ ' just del')
+  }
+  
+
   return (
     <form className='todos__single'>
       <span className='todos__single--text'>{todo.todo}</span>
@@ -19,11 +28,11 @@ const SingleTodo:React.FC<Props> = ({todo,todos,setTodos}) => {
         </span>
           
         <span className="icon">
-        <AiFillDelete></AiFillDelete>
+        <AiFillDelete ></AiFillDelete>
         </span>
 
         <span className="icon">
-        <MdDone></MdDone>
+        <MdDone onClick={()=>handleDone(todo.id)}></MdDone>
         </span>
         
         
@@ -36,3 +45,5 @@ const SingleTodo:React.FC<Props> = ({todo,todos,setTodos}) => {
 }
 
 export default SingleTodo
+
+

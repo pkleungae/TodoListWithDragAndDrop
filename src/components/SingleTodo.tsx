@@ -21,7 +21,14 @@ const SingleTodo:React.FC<Props> = ({todo,todos,setTodos}) => {
 
   return (
     <form className='todos__single'>
-      <span className='todos__single--text'>{todo.todo}</span>
+
+      {/* todo display conttrol */}
+
+      {todo.isDone ? (
+      <s className='todos__single--text'>{todo.todo}</s>
+      ):(
+        <span className='todos__single--text'>{todo.todo}</span>
+      )}
       <div>
         <span className="icon">
           <AiFillEdit></AiFillEdit>

@@ -104,6 +104,7 @@
     font-size: 20px;
   }
   
+  /* when we make it as input box */
   .todos__single--text:focus {
     outline: none;
   }
@@ -114,12 +115,15 @@
     cursor: pointer;
   }
   
+  /* when it is for bigger screen */
   @media (max-width: 1100px) {
     .todos {
       width: 45%;
     }
   }
+
   
+  /* when the screen less than 700px  */
   @media (max-width: 700px) {
     .input {
       width: 95%;

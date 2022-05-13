@@ -56,7 +56,8 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    width: 47.5%;
+    /* justify-content: center */
+    width: 45%;
     padding: 15px;
     background-color: rgb(50, 195, 205);
   }
